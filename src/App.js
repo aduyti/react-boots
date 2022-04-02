@@ -1,10 +1,24 @@
 import { Button, CardGroup } from 'react-bootstrap';
 import './App.css';
 import MyCard from './MyCard/MyCard';
+import { useSpring, animated } from 'react-spring';
+import { useState } from 'react';
 
 function App() {
+  const [flip, set] = useState(false);
+  const props = useSpring({
+    // fontSize: '40px',
+    // fontWeight: 'bold',
+    to: { opacity: 1 },
+    from: { opacity: 0 },
+    reset: true,
+    reverse: flip,
+    delay: 500,
+    onRest: () => set(!flip),
+  });
   return (
     <div className="App">
+      <animated.div style={props}>I will fade in</animated.div>
       <>
         <Button variant="primary">Primary</Button>{' '}
         <Button variant="secondary">Secondary</Button>{' '}
